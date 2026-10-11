@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Place an Order | Emmy's Fast Food</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h2>Emmy's Fast Food</h2>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="menu.html">Menu</a>
+    <a class="active" href="order.html">Order</a>
+    <a href="contact.html">Contact</a>
+    <a href="about.html">About</a>
+  </nav>
+</header>
+
+<main class="container">
+  <h1 class="center">Place Your Order</h1>
+  <p class="center">Complete the form below to order your meal.</p>
+
+  <form id="orderForm">
+    <label for="customer">Your full name</label>
+    <input id="customer" name="customer"
+           type="text" required>
+
+    <label for="phone">Your phone number</label>
+    <input id="phone" name="phone"
+           type="tel" required>
+
+    <label for="meal">Choose your meal</label>
+    <select id="meal" name="meal" required>
+      <option value="">-- Select a meal --</option>
+      <option value="Fried Rice">Fried Rice - GH₵45</option>
+      <option value="Jollof Rice">Jollof Rice - GH₵35</option>
+      <option value="Rice and Stew">Rice and Stew - GH₵40</option>
+      <option value="Delicious Fufu">Delicious Fufu - GH₵40</option>
+      <option value="Kenkey With Fried Fish">Kenkey With Fried Fish - GH₵40</option>
+       <option value="Special Banku">Special Banku - GH₵60</option>
+    </select>
+
+    <label for="quantity">Quantity</label>
+    <input id="quantity" name="quantity"
+           type="number" min="1" value="1" required>
+
+    <label for="delivery">Delivery option</label>
+    <select id="delivery" name="delivery" required>
+      <option value="Pickup">Pick up at restaurant</option>
+      <option value="Delivery">Home delivery</option>
+    </select>
+
+    <label for="address">Delivery address (if applicable)</label>
+    <textarea id="address" name="address"
+              placeholder="Enter your location or directions"></textarea>
+
+    <label for="notes">Additional instructions</label>
+    <textarea id="notes" name="notes"
+              placeholder="Any special requests?"></textarea>
+
+    <button class="button" type="submit">
+      Send Order on WhatsApp
+    </button>
+  </form>
+
+  <p id="message" class="center"></p>
+</main>
+
+<footer>
+  <p>&copy; 2026 Emmy's Fast Food</p>
+</footer>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+const selectedMeal = params.get("meal");
+
+const mealSelect = document.getElementById("meal");
+
+if (selectedMeal) {
+  mealSelect.value = selectedMeal;
+}
+
+  const form = document.getElementById("orderForm");
+
+  form.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const customer =
+      document.getElementById("customer").value.trim();
+    const phone =
+      document.getElementById("phone").value.trim();
+    const meal =
+      document.getElementById("meal").value;
+    const quantity =
+      Number(document.getElementById("quantity").value);
+    const delivery =
+      document.getElementById("delivery").value;
+    const address =
+      document.getElementById("address").value.trim();
+    const notes =
+      document.getElementById("notes").value.trim();
+
+    if (!customer || !phone || !meal ||
+        !Number.isInteger(quantity) || quantity < 1) {
+      document.getElementById("message").textContent =
+        "Please complete the required fields correctly.";
+      return;
+    }
+
+    const prices = {
+      "Fried Rice": 45,
+      "Jollo Rice": 35,
+      "Rice and Stew": 40,
+      "Delicious Fufu": 40,
+      "Kenkey With Fried Fish": 40,
+      "Special Banku": 60
+    };
+
+    const total = prices[meal] * quantity;
+
+    const orderMessage =
+      "Hello Emmy's Fast Food! I want to place an order.%0A" +
+      "Name: " + encodeURIComponent(customer) + "%0A" +
+      "Customer phone: " + encodeURIComponent(phone) + "%0A" +
+      "Meal: " + encodeURIComponent(meal) + "%0A" +
+      "Quantity: " + quantity + "%0A" +
+      "Estimated food total: GH₵ " + total.toFixed(2) + "%0A" +
+      "Option: " + encodeURIComponent(delivery) + "%0A" +
+      "Address: " + encodeURIComponent(address || "Not provided") + "%0A" +
+      "Instructions: " + encodeURIComponent(notes || "None");
+
+    // Replace this example with the restaurant's
+    // WhatsApp number in international format.
+    const restaurantNumber = "233533958593";
+
+    if (!/^233\d{9}$/.test(restaurantNumber)) {
+      document.getElementById("message").textContent =
+        "The restaurant must configure its WhatsApp number before orders can be sent.";
+      return;
+    }
+
+    const whatsappURL =
+      "https://wa.me/" + restaurantNumber +
+      "?text=" + orderMessage;
+
+    window.open(whatsappURL, "_blank");
+  });
+</script>
+
+</body>
+</html>
