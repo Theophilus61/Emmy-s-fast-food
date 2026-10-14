@@ -1,605 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Menu | Emmy's Fast Food</title>
-    <link rel="stylesheet" href="style.css">
-
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f5f8f3;
-            color: #222;
-        }
-
-        header {
-            background: #087b3c;
-            color: white;
-            padding: 18px 12px;
-            text-align: center;
-        }
-
-        header h2 {
-            margin: 0 0 12px;
-        }
-
-        nav {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        nav a:hover {
-            color: #ffdc54;
-        }
-
-        .hero {
-            background: linear-gradient(135deg, #075c30, #15944f);
-            color: white;
-            text-align: center;
-            padding: 30px 15px;
-        }
-
-        .hero h1 {
-            margin: 0 0 10px;
-            font-size: 30px;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: auto;
-            padding: 20px 14px;
-        }
-
-        .categories {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 8px;
-            margin-bottom: 22px;
-        }
-
-        .category-btn {
-            border: 1px solid #087b3c;
-            border-radius: 22px;
-            padding: 10px 15px;
-            background: white;
-            color: #087b3c;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .category-btn.active,
-        .category-btn:hover {
-            background: #087b3c;
-            color: white;
-        }
-
-        .layout {
-            display: grid;
-            grid-template-columns: minmax(0, 1fr) 320px;
-            gap: 22px;
-            align-items: start;
-        }
-
-        .food-grid {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 16px;
-        }
-
-        .food-card {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 3px 12px #00000012;
-            border: 1px solid #e6e9e4;
-        }
-
-        .food-image {
-            width: 100%;
-            height: 145px;
-            object-fit: cover;
-            display: block;
-            background: #e4eee5;
-        }
-
-        .food-info {
-            padding: 13px;
-        }
-
-        .food-info h3 {
-            margin: 0 0 7px;
-            font-size: 18px;
-        }
-
-        .food-info p {
-            color: #666;
-            font-size: 13px;
-            min-height: 30px;
-            margin: 0 0 10px;
-        }
-
-        .price {
-            color: #087b3c;
-            font-weight: bold;
-            font-size: 18px;
-            margin-bottom: 12px;
-        }
-
-        .quantity {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 8px;
-        }
-
-        .quantity button {
-            width: 36px;
-            height: 36px;
-            border: none;
-            border-radius: 8px;
-            background: #087b3c;
-            color: white;
-            font-size: 21px;
-            cursor: pointer;
-        }
-
-        .quantity button:disabled {
-            background: #b8c5bc;
-            cursor: not-allowed;
-        }
-
-        .quantity span {
-            font-weight: bold;
-            min-width: 20px;
-            text-align: center;
-        }
-
-        .cart {
-            background: white;
-            padding: 18px;
-            border-radius: 12px;
-            box-shadow: 0 3px 12px #00000012;
-            border-top: 5px solid #087b3c;
-            position: sticky;
-            top: 12px;
-        }
-
-        .cart h2 {
-            margin-top: 0;
-        }
-
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            gap: 10px;
-            padding: 10px 0;
-            border-bottom: 1px solid #eee;
-            font-size: 14px;
-        }
-
-        .empty {
-            color: #777;
-            font-size: 14px;
-        }
-
-        .total {
-            display: flex;
-            justify-content: space-between;
-            font-size: 20px;
-            font-weight: bold;
-            color: #087b3c;
-            margin: 18px 0;
-        }
-
-        .customer-form label {
-            display: block;
-            font-weight: bold;
-            margin: 12px 0 5px;
-            font-size: 14px;
-        }
-
-        .customer-form input,
-        .customer-form textarea,
-        .customer-form select {
-            width: 100%;
-            padding: 11px;
-            border: 1px solid #ccc;
-            border-radius: 7px;
-            font: inherit;
-        }
-
-        .customer-form textarea {
-            min-height: 70px;
-            resize: vertical;
-        }
-
-        .order-btn {
-            width: 100%;
-            margin-top: 15px;
-            padding: 14px;
-            background: #168b48;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .order-btn:hover {
-            background: #09672f;
-        }
-
-        .hint {
-            font-size: 12px;
-            color: #666;
-            line-height: 1.5;
-        }
-
-        footer {
-            text-align: center;
-            padding: 22px 12px;
-            background: #073d24;
-            color: white;
-            margin-top: 25px;
-        }
-
-        @media (max-width: 760px) {
-            .layout {
-                grid-template-columns: 1fr;
-            }
-
-            .food-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-                gap: 10px;
-            }
-
-            .food-image {
-                height: 115px;
-            }
-
-            .food-info {
-                padding: 10px;
-            }
-
-            .food-info h3 {
-                font-size: 15px;
-            }
-
-            .food-info p {
-                font-size: 12px;
-            }
-
-            .price {
-                font-size: 16px;
-            }
-
-            .cart {
-                position: static;
-            }
-
-            .hero h1 {
-                font-size: 25px;
-            }
-        }
-
-        @media (max-width: 360px) {
-            .food-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Menu | Emmy's Fast Food</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
 <header>
-    <h2>Emmy's Fast Food</h2>
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="menu.html">Menu</a>
-        <a href="order.html">Order</a>
-        <a href="contact.html">Contact</a>
-        <a href="about.html">About</a>
-    </nav>
+  <h2>Emmy's Fast Food</h2>
+  <nav>
+    <a href="index.html">Home</a>
+    <a class="active" href="menu.html">Menu</a>
+    <a href="order.html">Order</a>
+    <a href="contact.html">Contact</a>
+    <a href="about.html">About</a>
+  </nav>
 </header>
 
-<section class="hero">
-    <h1>Tasty Meals, Great Vibes!</h1>
-    <p>Choose your favourite meals and order everything in one go.</p>
-</section>
+<main class="container center">
+  <h1>Our Food Menu</h1>
+  <p>Choose your favourite meal, place your order,<br>sit back and relax as we serve you at the comfort of your home</p>
 
-<main class="container">
-    <h2 style="text-align:center;">Explore Our Menu</h2>
-    <p style="text-align:center;">Choose your meals, then use + and − to set quantities.</p>
+  <div class="foods">
+    <article class="food">
+      <img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=700&q=80" alt="Rice dish">
+      <h3>Fried Rice</h3>
+      <p class="price">GH₵ 45.00</p>
+      <a class="button" href="order.html?meal=Fried%20Rice">Order Now</a>
+    </article>
 
-    <div class="categories">
-        <button class="category-btn active" data-category="All">All Meals</button>
-        <button class="category-btn" data-category="Rice">Rice Dishes</button>
-        <button class="category-btn" data-category="Local">Local Dishes</button>
-    </div>
+    <article class="food">
+      <img src="c:\Users\USER\OneDrive\Pictures\a74bcb0ac99a32475e945016731d8d39.jpg" alt="Fresh meal">
+      <h3>Jollof Rice</h3>
+      <p class="price">GH₵ 35.00</p>
+      <a class="button" href="order.html?meal=Jollof%20Rice ">Order Now</a>
+    </article>
 
-    <div class="layout">
-        <section>
-            <div class="food-grid" id="foodGrid"></div>
-        </section>
 
-        <aside class="cart" id="cart">
-            <h2>🛒 Your Order</h2>
-            <div id="cartItems">
-                <p class="empty">No meals selected yet.</p>
-            </div>
+    <article class="food">
+      <img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=700&q=80" alt="Prepared food">
+      <h3>Rice and Stew</h3>
+      <p class="price">GH₵ 40.00</p>
+      <a class="button" href="order.html?meal=Rice%20and%20Stew">Order Now</a>
+    </article>
 
-            <div class="total">
-                <span>Total</span>
-                <span id="totalPrice">GH₵0.00</span>
-            </div>
+    </article>
+    <article class="food">
+      <img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=700&q=80" alt="Prepared food">
+      <h3>Delicious Fufu</h3>
+      <p class="price">GH₵ 40.00</p>
+      <a class="button" href="order.html?meal=Delicious%20Fufu">Order Now</a>
+    </article>
+    
+    </article>
+    <article class="food">
+      <img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=700&q=80" alt="Prepared food">
+      <h3>Kenkey with fried fish</h3>
+      <p class="price">GH₵ 40.00</p>
+      <a class="button" href="order.html?meal=Kenkey%20With%20Fried%20Fish">Order Now</a>
+    </article>
 
-            <form class="customer-form" id="orderForm">
-                <label for="customerName">Full Name *</label>
-                <input id="customerName" type="text" required
-                    placeholder="Enter your name">
 
-                <label for="customerPhone">Phone Number *</label>
-                <input id="customerPhone" type="tel" required
-                    placeholder="e.g. 0241234567">
-
-                <label for="orderType">Order Type *</label>
-                <select id="orderType" required>
-                    <option value="Delivery">Delivery</option>
-                    <option value="Pickup">Pickup</option>
-                </select>
-
-                <label for="customerAddress">Delivery Address / Pickup Notes *</label>
-                <textarea id="customerAddress" required
-                    placeholder="Enter your location or pickup details"></textarea>
-
-                <label for="customerNotes">Extra Instructions (optional)</label>
-                <textarea id="customerNotes"
-                    placeholder="Any special instructions?"></textarea>
-
-                <button class="order-btn" type="submit">
-                    Order on WhatsApp
-                </button>
-                <p class="hint">
-                    Your order will open in WhatsApp for you to review and send.
-                    Delivery fees, if applicable, are not included in this total.
-                </p>
-            </form>
-        </aside>
-    </div>
+    <article class="food">
+      <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=700&q=80" alt="Pizza">
+      <h3>Special Banku</h3>
+      <p class="price">GH₵ 60.00</p>
+      <a class="button" href="order.html?meal=Special%20Banku">Order Now</a>
+    </article>
+  </div>
 </main>
 
 <footer>
-    <p><strong>Emmy's Fast Food</strong></p>
-    <p>Good Food, Great Taste!</p>
+  <p>&copy; 2026 Emmy's Fast Food</p>
 </footer>
-
-<script>
-    // Replace these sample prices with your confirmed menu prices.
-    const meals = [
-        {
-            id: 1,
-            name: "Fried Rice",
-            price: 45,
-            category: "Rice",
-            description: "Delicious fried rice.",
-            image: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=700&q=80"
-        },
-        {
-            id: 2,
-            name: "Jollof Rice",
-            price: 35,
-            category: "Rice",
-            description: "Tasty Ghanaian jollof.",
-            image: "https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=700&q=80"
-        },
-        {
-            id: 3,
-            name: "Rice and Stew",
-            price: 40,
-            category: "Rice",
-            description: "Rice served with stew.",
-            image: "https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=700&q=80"
-        },
-        {
-            id: 4,
-            name: "Fufu",
-            price: 45,
-            category: "Local",
-            description: "A satisfying local favourite.",
-            image: "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=700&q=80"
-        },
-        {
-            id: 5,
-            name: "Kenkey",
-            price: 40,
-            category: "Local",
-            description: "Kenkey served your way.",
-            image: "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=700&q=80"
-        },
-        {
-            id: 6,
-            name: "Banku",
-            price: 60,
-            category: "Local",
-            description: "Traditional Ghanaian banku.",
-            image: "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=700&q=80"
-        }
-    ];
-
-    const quantities = {};
-    meals.forEach(meal => quantities[meal.id] = 0);
-
-    const foodGrid = document.getElementById("foodGrid");
-    const cartItems = document.getElementById("cartItems");
-    const totalPrice = document.getElementById("totalPrice");
-
-    function money(amount) {
-        return "GH₵" + amount.toFixed(2);
-    }
-
-    function renderMeals(category = "All") {
-        foodGrid.innerHTML = "";
-
-        const visibleMeals = meals.filter(meal =>
-            category === "All" || meal.category === category
-        );
-
-        visibleMeals.forEach(meal => {
-            const card = document.createElement("article");
-            card.className = "food-card";
-
-            card.innerHTML = `
-                <img class="food-image"
-                     src="${meal.image}"
-                     alt="${meal.name}"
-                     loading="lazy">
-                <div class="food-info">
-                    <h3>${meal.name}</h3>
-                    <p>${meal.description}</p>
-                    <div class="price">${money(meal.price)}</div>
-                    <div class="quantity">
-                        <button type="button" aria-label="Remove one ${meal.name}"
-                            ${quantities[meal.id] === 0 ? "disabled" : ""}
-                            onclick="changeQuantity(${meal.id}, -1)">−</button>
-                        <span id="qty-${meal.id}">${quantities[meal.id]}</span>
-                        <button type="button" aria-label="Add one ${meal.name}"
-                            onclick="changeQuantity(${meal.id}, 1)">+</button>
-                    </div>
-                </div>
-            `;
-
-            foodGrid.appendChild(card);
-        });
-    }
-
-    function changeQuantity(id, change) {
-        quantities[id] = Math.max(0, quantities[id] + change);
-        renderMeals(getActiveCategory());
-        renderCart();
-    }
-
-    function getActiveCategory() {
-        const active = document.querySelector(".category-btn.active");
-        return active ? active.dataset.category : "All";
-    }
-
-    function renderCart() {
-        cartItems.innerHTML = "";
-        let total = 0;
-        let itemCount = 0;
-
-        meals.forEach(meal => {
-            const quantity = quantities[meal.id];
-
-            if (quantity > 0) {
-                itemCount += quantity;
-                const subtotal = meal.price * quantity;
-                total += subtotal;
-
-                const item = document.createElement("div");
-                item.className = "cart-item";
-                item.innerHTML = `
-                    <span>${meal.name} × ${quantity}</span>
-                    <strong>${money(subtotal)}</strong>
-                `;
-                cartItems.appendChild(item);
-            }
-        });
-
-        if (itemCount === 0) {
-            cartItems.innerHTML =
-                '<p class="empty">No meals selected yet.</p>';
-        }
-
-        totalPrice.textContent = money(total);
-    }
-
-    document.querySelectorAll(".category-btn").forEach(button => {
-        button.addEventListener("click", () => {
-            document.querySelectorAll(".category-btn").forEach(btn =>
-                btn.classList.remove("active")
-            );
-
-            button.classList.add("active");
-            renderMeals(button.dataset.category);
-        });
-    });
-
-    document.getElementById("orderForm").addEventListener("submit", event => {
-        event.preventDefault();
-
-        const selectedMeals = meals.filter(meal => quantities[meal.id] > 0);
-
-        if (selectedMeals.length === 0) {
-            alert("Please select at least one meal before ordering.");
-            return;
-        }
-
-        const name = document.getElementById("customerName").value.trim();
-        const phone = document.getElementById("customerPhone").value.trim();
-        const orderType = document.getElementById("orderType").value;
-        const address = document.getElementById("customerAddress").value.trim();
-        const notes = document.getElementById("customerNotes").value.trim();
-
-        if (!name || !phone || !address) {
-            alert("Please complete all required customer details.");
-            return;
-        }
-
-        let total = 0;
-        let message = "EMMY'S FAST FOOD - NEW ORDER\n\n";
-        message += "Customer: " + name + "\n";
-        message += "Phone: " + phone + "\n";
-        message += "Order type: " + orderType + "\n";
-        message += "Address / pickup details: " + address + "\n\n";
-        message += "ORDER DETAILS:\n";
-
-        selectedMeals.forEach(meal => {
-            const quantity = quantities[meal.id];
-            const subtotal = meal.price * quantity;
-            total += subtotal;
-
-            message += meal.name + " x " + quantity +
-                " = " + money(subtotal) + "\n";
-        });
-
-        message += "\nTOTAL: " + money(total) + "\n";
-
-        if (notes) {
-            message += "Extra instructions: " + notes + "\n";
-        }
-
-        message += "\nPlease confirm availability and delivery charges.";
-
-        // Ghana number 0533958593 in international format.
-        const whatsappNumber = "233533958593";
-        const whatsappURL =
-            "https://wa.me/" + whatsappNumber +
-            "?text=" + encodeURIComponent(message);
-
-        window.open(whatsappURL, "_blank");
-    });
-
-    renderMeals();
-    renderCart();
-</script>
 
 </body>
 </html>
